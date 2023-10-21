@@ -10,10 +10,18 @@ const Signup = () => {
         password: "",
         username: ""
     })
-
+    const [buttonDisabled, setButtonDisabled] = React.useState(false);
 
     const onSignup = async () => {
     }
+
+    React.useEffect(() => {
+        if (user.email.length > 0 && user.password.length > 0 && user.username.length > 0) {
+            setButtonDisabled(() => false);
+        } else {
+            setButtonDisabled(() => true);
+        }
+    }, [user])
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -21,7 +29,7 @@ const Signup = () => {
             <hr />
             <label className="p-2 m-2 mb-1" htmlFor="username">username</label>
             <input
-                className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+                className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
                 id="username"
                 type="text"
                 value={user.username}
@@ -30,7 +38,7 @@ const Signup = () => {
             />
             <label className="p-2 m-2 mb-1" htmlFor="email">email</label>
             <input
-                className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+                className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
                 id="email"
                 type="text"
                 value={user.email}
@@ -39,14 +47,14 @@ const Signup = () => {
             />
             <label className="p-2 m-2 mb-1" htmlFor="password">password</label>
             <input
-                className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+                className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
                 id="password"
                 type="text"
                 value={user.password}
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
                 placeholder="password"
             />
-            <button className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">Signup here</button>
+            <button disabled={buttonDisabled} className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">{buttonDisabled ? "No Signup" : "Signup"}</button>
             <Link href="/login">Visit Login Page</Link>
         </div>
     )
