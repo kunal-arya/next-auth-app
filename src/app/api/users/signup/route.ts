@@ -4,7 +4,14 @@ import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 
 // connecting mongodb
+console.log("mongoDB connection");
 connect();
+
+export async function GET(request: NextRequest) {
+  return NextResponse.json({
+    message: "this is Get Message",
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {
